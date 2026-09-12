@@ -4,7 +4,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
   WiFi.mode(WIFI_STA);
-  WiFi.begin("MyWiFi", "Moon15Star18");
+  WiFi.begin("Nonprawich's iPhone", "12345678");
   Serial.print("Connecting");
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);

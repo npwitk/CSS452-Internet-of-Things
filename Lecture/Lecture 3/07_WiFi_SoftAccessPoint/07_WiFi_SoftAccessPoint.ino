@@ -4,7 +4,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println();
   Serial.print("Setting soft-AP ... ");
-  boolean result = WiFi.softAP("Your_SSID", "Your_Password");
+  boolean result = WiFi.softAP("NPWITK_ESP", "12345678");
   if(result == true) {
     Serial.println("Ready");
   } else {
