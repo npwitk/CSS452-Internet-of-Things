@@ -2,11 +2,11 @@
 #include <HTTPClient.h>
 
 // Replace with your network credentials
-const char* ssid = "MyWiFi";
-const char* password = "Moon15Star18";
+const char* ssid = "npwitk";
+const char* password = "aisfibre2010";
 
 // REPLACE WITH THINGSPEAK.COM API KEY
-String serverName = "http://api.thingspeak.com/update?api_key=LGUP3GH9R3ODSVNN";
+String serverName = "http://api.thingspeak.com/update?api_key=8VQ5I9IXEWXMGHTK";
 // EXAMPLE:
 //String serverName = "http://api.thingspeak.com/update?api_key=7HQJM49R8JAPR";
 
