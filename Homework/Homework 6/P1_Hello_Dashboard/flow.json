@@ -1,0 +1,75 @@
+[
+  {
+    "id": "tab_s1",
+    "type": "ui_tab",
+    "name": "Sensor 1",
+    "icon": "dashboard",
+    "order": 1,
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "grp_h1",
+    "type": "ui_group",
+    "name": "Home 1",
+    "tab": "tab_s1",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "inj",
+    "type": "inject",
+    "name": "Hello",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "Hello",
+    "payloadType": "str",
+    "x": 110,
+    "y": 100,
+    "wires": [
+      [
+        "dbg",
+        "txt"
+      ]
+    ]
+  },
+  {
+    "id": "dbg",
+    "type": "debug",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 320,
+    "y": 60,
+    "wires": []
+  },
+  {
+    "id": "txt",
+    "type": "ui_text",
+    "group": "grp_h1",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "name": "",
+    "label": "text",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "x": 300,
+    "y": 140,
+    "wires": []
+  }
+]

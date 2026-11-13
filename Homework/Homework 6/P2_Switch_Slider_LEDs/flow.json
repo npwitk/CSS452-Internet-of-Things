@@ -1,0 +1,111 @@
+[
+  {
+    "id": "tab_h1",
+    "type": "ui_tab",
+    "name": "Home 1",
+    "icon": "dashboard",
+    "order": 1,
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "grp_l1",
+    "type": "ui_group",
+    "name": "LED 1",
+    "tab": "tab_h1",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "grp_l2",
+    "type": "ui_group",
+    "name": "LED 2",
+    "tab": "tab_h1",
+    "order": 2,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "uisw",
+    "type": "ui_switch",
+    "name": "",
+    "label": "switch",
+    "group": "grp_l1",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "decouple": "false",
+    "topic": "",
+    "style": "",
+    "onvalue": "true",
+    "onvalueType": "bool",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "false",
+    "offvalueType": "bool",
+    "officon": "",
+    "offcolor": "",
+    "x": 110,
+    "y": 80,
+    "wires": [
+      [
+        "led1o"
+      ]
+    ]
+  },
+  {
+    "id": "uisl",
+    "type": "ui_slider",
+    "name": "",
+    "label": "slider",
+    "group": "grp_l2",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "outs": "all",
+    "topic": "",
+    "min": 0,
+    "max": "100",
+    "step": 1,
+    "x": 110,
+    "y": 160,
+    "wires": [
+      [
+        "led2o"
+      ]
+    ]
+  },
+  {
+    "id": "led1o",
+    "type": "rpi-gpio out",
+    "name": "LED1",
+    "pin": "22",
+    "set": "",
+    "level": "0",
+    "freq": "",
+    "out": "out",
+    "bcm": true,
+    "x": 320,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "led2o",
+    "type": "rpi-gpio out",
+    "name": "LED2",
+    "pin": "18",
+    "set": "",
+    "level": "0",
+    "freq": "100",
+    "out": "pwm",
+    "bcm": true,
+    "x": 320,
+    "y": 160,
+    "wires": []
+  }
+]

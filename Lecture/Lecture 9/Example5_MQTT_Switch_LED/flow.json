@@ -1,0 +1,93 @@
+[
+  {
+    "id": "hive",
+    "type": "mqtt-broker",
+    "name": "Hive MQ",
+    "broker": "broker.hivemq.com",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true
+  },
+  {
+    "id": "sw1p",
+    "type": "rpi-gpio in",
+    "name": "SW1",
+    "pin": "3",
+    "intype": "up",
+    "debounce": "25",
+    "read": true,
+    "bcm": true,
+    "x": 110,
+    "y": 80,
+    "wires": [
+      [
+        "mout"
+      ]
+    ]
+  },
+  {
+    "id": "mout",
+    "type": "mqtt out",
+    "name": "",
+    "topic": "/CSS452IoT/YOUR_ID/SW1state",
+    "qos": "2",
+    "retain": "",
+    "broker": "hive",
+    "x": 360,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "min",
+    "type": "mqtt in",
+    "name": "",
+    "topic": "/CSS452IoT/YOUR_ID/SW1state",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "hive",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 150,
+    "y": 180,
+    "wires": [
+      [
+        "dbg2",
+        "led1s"
+      ]
+    ]
+  },
+  {
+    "id": "dbg2",
+    "type": "debug",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 400,
+    "y": 160,
+    "wires": []
+  },
+  {
+    "id": "led1s",
+    "type": "rpi-gpio out",
+    "name": "LED1",
+    "pin": "22",
+    "set": "",
+    "level": "0",
+    "freq": "",
+    "out": "out",
+    "bcm": true,
+    "x": 390,
+    "y": 220,
+    "wires": []
+  }
+]

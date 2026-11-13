@@ -1,0 +1,40 @@
+[
+  {
+    "id": "inj1",
+    "type": "inject",
+    "name": "Hello",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "Hello",
+    "payloadType": "str",
+    "x": 120,
+    "y": 80,
+    "wires": [
+      [
+        "dbg1"
+      ]
+    ]
+  },
+  {
+    "id": "dbg1",
+    "type": "debug",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 310,
+    "y": 80,
+    "wires": []
+  }
+]

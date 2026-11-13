@@ -1,0 +1,64 @@
+[
+  {
+    "id": "sw1",
+    "type": "rpi-gpio in",
+    "name": "SW1",
+    "pin": "3",
+    "intype": "up",
+    "debounce": "25",
+    "read": false,
+    "bcm": true,
+    "x": 120,
+    "y": 80,
+    "wires": [
+      [
+        "led1"
+      ]
+    ]
+  },
+  {
+    "id": "led1",
+    "type": "rpi-gpio out",
+    "name": "LED1",
+    "pin": "22",
+    "set": "",
+    "level": "0",
+    "freq": "",
+    "out": "out",
+    "bcm": true,
+    "x": 330,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "sw2",
+    "type": "rpi-gpio in",
+    "name": "SW2",
+    "pin": "4",
+    "intype": "up",
+    "debounce": "25",
+    "read": false,
+    "bcm": true,
+    "x": 120,
+    "y": 160,
+    "wires": [
+      [
+        "led2"
+      ]
+    ]
+  },
+  {
+    "id": "led2",
+    "type": "rpi-gpio out",
+    "name": "LED2",
+    "pin": "18",
+    "set": "",
+    "level": "0",
+    "freq": "",
+    "out": "out",
+    "bcm": true,
+    "x": 330,
+    "y": 160,
+    "wires": []
+  }
+]
