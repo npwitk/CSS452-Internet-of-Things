@@ -1,0 +1,72 @@
+[
+  {
+    "id": "db1",
+    "type": "sqlitedb",
+    "db": "/home/pi/Database1",
+    "mode": "RWC"
+  },
+  {
+    "id": "inj5",
+    "type": "inject",
+    "name": "10",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "once": false,
+    "topic": "",
+    "payload": "10",
+    "payloadType": "num",
+    "x": 110,
+    "y": 120,
+    "wires": [
+      [
+        "fn5"
+      ]
+    ]
+  },
+  {
+    "id": "fn5",
+    "type": "function",
+    "name": "Params variable",
+    "func": "msg.params = { $TimeVal:Date.now(), $SensorVal:msg.payload }\nreturn msg;",
+    "outputs": 1,
+    "x": 290,
+    "y": 120,
+    "wires": [
+      [
+        "sq5"
+      ]
+    ]
+  },
+  {
+    "id": "sq5",
+    "type": "sqlite",
+    "mydb": "db1",
+    "sqlquery": "prepared",
+    "sql": "insert into SensorData (TheTime, TheValue) values ($TimeVal, $SensorVal)",
+    "name": "Database1",
+    "x": 480,
+    "y": 120,
+    "wires": [
+      [
+        "dbg5"
+      ]
+    ]
+  },
+  {
+    "id": "dbg5",
+    "type": "debug",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 660,
+    "y": 120,
+    "wires": []
+  }
+]

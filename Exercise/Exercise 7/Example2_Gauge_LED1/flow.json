@@ -1,0 +1,106 @@
+[
+  {
+    "id": "lb",
+    "type": "mqtt-broker",
+    "name": "Local Pi",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true
+  },
+  {
+    "id": "tab",
+    "type": "ui_tab",
+    "name": "Home",
+    "icon": "dashboard",
+    "order": 1,
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "grp",
+    "type": "ui_group",
+    "name": "Potentiometer",
+    "tab": "tab",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "min",
+    "type": "mqtt in",
+    "name": "",
+    "topic": "/IoT/PotenValue_YOUR_ID",
+    "qos": "0",
+    "datatype": "auto",
+    "broker": "lb",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 150,
+    "y": 100,
+    "wires": [
+      [
+        "rng",
+        "gau"
+      ]
+    ]
+  },
+  {
+    "id": "rng",
+    "type": "range",
+    "minin": "0",
+    "maxin": "4095",
+    "minout": "0",
+    "maxout": "100",
+    "action": "scale",
+    "round": true,
+    "property": "payload",
+    "name": "0-4095 to 0-100",
+    "x": 370,
+    "y": 80,
+    "wires": [
+      [
+        "led1"
+      ]
+    ]
+  },
+  {
+    "id": "led1",
+    "type": "rpi-gpio out",
+    "name": "LED1",
+    "pin": "22",
+    "set": "",
+    "level": "0",
+    "freq": "100",
+    "out": "pwm",
+    "bcm": true,
+    "x": 570,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "gau",
+    "type": "ui_gauge",
+    "name": "",
+    "group": "grp",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "gtype": "gage",
+    "title": "Potentiometer",
+    "label": "",
+    "format": "{{value}}",
+    "min": 0,
+    "max": "4095",
+    "x": 360,
+    "y": 140,
+    "wires": []
+  }
+]

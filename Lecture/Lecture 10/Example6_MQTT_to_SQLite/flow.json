@@ -1,0 +1,83 @@
+[
+  {
+    "id": "lb",
+    "type": "mqtt-broker",
+    "name": "Local Pi",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true
+  },
+  {
+    "id": "db1",
+    "type": "sqlitedb",
+    "db": "/home/pi/Database1",
+    "mode": "RWC"
+  },
+  {
+    "id": "mi6",
+    "type": "mqtt in",
+    "name": "",
+    "topic": "/IoT/Test1_YOUR_ID",
+    "qos": "0",
+    "datatype": "auto",
+    "broker": "lb",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 130,
+    "y": 200,
+    "wires": [
+      [
+        "fn6"
+      ]
+    ]
+  },
+  {
+    "id": "fn6",
+    "type": "function",
+    "name": "Params variable",
+    "func": "msg.params = { $TimeVal:Date.now(), $SensorVal:msg.payload }\nreturn msg;",
+    "outputs": 1,
+    "x": 330,
+    "y": 200,
+    "wires": [
+      [
+        "sq6"
+      ]
+    ]
+  },
+  {
+    "id": "sq6",
+    "type": "sqlite",
+    "mydb": "db1",
+    "sqlquery": "prepared",
+    "sql": "insert into SensorData (TheTime, TheValue) values ($TimeVal, $SensorVal)",
+    "name": "Database1",
+    "x": 520,
+    "y": 200,
+    "wires": [
+      [
+        "dbg6"
+      ]
+    ]
+  },
+  {
+    "id": "dbg6",
+    "type": "debug",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 700,
+    "y": 200,
+    "wires": []
+  }
+]

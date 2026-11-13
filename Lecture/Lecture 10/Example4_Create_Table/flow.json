@@ -1,0 +1,43 @@
+[
+  {
+    "id": "db1",
+    "type": "sqlitedb",
+    "db": "/home/pi/Database1",
+    "mode": "RWC"
+  },
+  {
+    "id": "inj4",
+    "type": "inject",
+    "name": "create table",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "once": false,
+    "topic": "",
+    "payload": "true",
+    "payloadType": "bool",
+    "x": 130,
+    "y": 60,
+    "wires": [
+      [
+        "sq4"
+      ]
+    ]
+  },
+  {
+    "id": "sq4",
+    "type": "sqlite",
+    "mydb": "db1",
+    "sqlquery": "fixed",
+    "sql": "create table SensorData (TheTime Timestamp, TheValue integer)",
+    "name": "Database1",
+    "x": 340,
+    "y": 60,
+    "wires": [
+      []
+    ]
+  }
+]

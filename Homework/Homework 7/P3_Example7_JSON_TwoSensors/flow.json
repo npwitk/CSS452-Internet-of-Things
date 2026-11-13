@@ -1,0 +1,98 @@
+[
+  {
+    "id": "lb",
+    "type": "mqtt-broker",
+    "name": "Local Pi",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true
+  },
+  {
+    "id": "db2",
+    "type": "sqlitedb",
+    "db": "/home/pi/Database2",
+    "mode": "RWC"
+  },
+  {
+    "id": "mi7",
+    "type": "mqtt in",
+    "name": "",
+    "topic": "/IoT/Test2_YOUR_ID",
+    "qos": "0",
+    "datatype": "auto",
+    "broker": "lb",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 130,
+    "y": 280,
+    "wires": [
+      [
+        "js7"
+      ]
+    ]
+  },
+  {
+    "id": "js7",
+    "type": "json",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 290,
+    "y": 280,
+    "wires": [
+      [
+        "fn7"
+      ]
+    ]
+  },
+  {
+    "id": "fn7",
+    "type": "function",
+    "name": "Params variable",
+    "func": "msg.params = { $TimeVal:Date.now(), $Val1:msg.payload.Sensor1, $Val2:msg.payload.Sensor2 }\nreturn msg;",
+    "outputs": 1,
+    "x": 450,
+    "y": 280,
+    "wires": [
+      [
+        "sq7"
+      ]
+    ]
+  },
+  {
+    "id": "sq7",
+    "type": "sqlite",
+    "mydb": "db2",
+    "sqlquery": "prepared",
+    "sql": "insert into TwoSensors (TheTime, Sen1Val, Sen2Val) values ($TimeVal, $Val1, $Val2)",
+    "name": "Database2",
+    "x": 640,
+    "y": 280,
+    "wires": [
+      [
+        "dbg7"
+      ]
+    ]
+  },
+  {
+    "id": "dbg7",
+    "type": "debug",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "complete": "true",
+    "targetType": "full",
+    "x": 810,
+    "y": 280,
+    "wires": []
+  }
+]
