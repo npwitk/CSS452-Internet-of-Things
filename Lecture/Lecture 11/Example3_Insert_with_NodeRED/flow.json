@@ -1,0 +1,97 @@
+[
+  {
+    "id": "ifx",
+    "type": "influxdb",
+    "hostname": "localhost",
+    "port": "8086",
+    "protocol": "http",
+    "database": "InfluxTest",
+    "name": "Local",
+    "usetls": false,
+    "influxdbVersion": "1.x"
+  },
+  {
+    "id": "in1",
+    "type": "inject",
+    "name": "room1",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "once": false,
+    "topic": "",
+    "payload": "{\"roomname\":\"room1\",\"temp\":20,\"humid\":50,\"light\":35,\"pm\":15}",
+    "payloadType": "json",
+    "x": 110,
+    "y": 80,
+    "wires": [
+      [
+        "fn"
+      ]
+    ]
+  },
+  {
+    "id": "in2",
+    "type": "inject",
+    "name": "room2",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "repeat": "",
+    "once": false,
+    "topic": "",
+    "payload": "{\"roomname\":\"room2\",\"temp\":30,\"humid\":60,\"light\":45,\"pm\":25}",
+    "payloadType": "json",
+    "x": 110,
+    "y": 140,
+    "wires": [
+      [
+        "fn"
+      ]
+    ]
+  },
+  {
+    "id": "fn",
+    "type": "function",
+    "name": "Fields",
+    "func": "msg.payload = [{\n    temp:msg.payload.temp,\n    humid:msg.payload.humid,\n    light:msg.payload.light,\n    pm:msg.payload.pm\n},\n{\n    roomname:msg.payload.roomname\n}]\nreturn msg;",
+    "outputs": 1,
+    "x": 290,
+    "y": 110,
+    "wires": [
+      [
+        "ifxout",
+        "dbg"
+      ]
+    ]
+  },
+  {
+    "id": "ifxout",
+    "type": "influxdb out",
+    "influxdb": "ifx",
+    "name": "InfluxTest",
+    "measurement": "home",
+    "precision": "",
+    "retentionPolicy": "",
+    "x": 480,
+    "y": 90,
+    "wires": []
+  },
+  {
+    "id": "dbg",
+    "type": "debug",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 470,
+    "y": 140,
+    "wires": []
+  }
+]

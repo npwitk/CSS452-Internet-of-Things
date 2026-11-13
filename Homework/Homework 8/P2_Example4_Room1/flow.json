@@ -1,0 +1,101 @@
+[
+  {
+    "id": "lb",
+    "type": "mqtt-broker",
+    "name": "Local Pi",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true
+  },
+  {
+    "id": "ifx",
+    "type": "influxdb",
+    "hostname": "localhost",
+    "port": "8086",
+    "protocol": "http",
+    "database": "InfluxTest",
+    "name": "Local",
+    "usetls": false,
+    "influxdbVersion": "1.x"
+  },
+  {
+    "id": "mi",
+    "type": "mqtt in",
+    "name": "",
+    "topic": "/IoT/HomeSensors",
+    "qos": "0",
+    "datatype": "auto",
+    "broker": "lb",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 130,
+    "y": 220,
+    "wires": [
+      [
+        "js"
+      ]
+    ]
+  },
+  {
+    "id": "js",
+    "type": "json",
+    "name": "",
+    "property": "payload",
+    "action": "obj",
+    "pretty": false,
+    "x": 290,
+    "y": 220,
+    "wires": [
+      [
+        "fn4"
+      ]
+    ]
+  },
+  {
+    "id": "fn4",
+    "type": "function",
+    "name": "Fields",
+    "func": "msg.payload = [{\n    temp:msg.payload.temp,\n    humid:msg.payload.humid,\n    light:msg.payload.light,\n    pm:msg.payload.pm\n},\n{\n    roomname:msg.payload.roomname\n}]\nreturn msg;",
+    "outputs": 1,
+    "x": 430,
+    "y": 220,
+    "wires": [
+      [
+        "ifxout4",
+        "dbg4"
+      ]
+    ]
+  },
+  {
+    "id": "ifxout4",
+    "type": "influxdb out",
+    "influxdb": "ifx",
+    "name": "InfluxTest",
+    "measurement": "home",
+    "precision": "",
+    "retentionPolicy": "",
+    "x": 620,
+    "y": 200,
+    "wires": []
+  },
+  {
+    "id": "dbg4",
+    "type": "debug",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 610,
+    "y": 250,
+    "wires": []
+  }
+]
