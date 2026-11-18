@@ -140,6 +140,20 @@ The default time is a 19-digit nanosecond count. `precision rfc3339` shows it as
 - **"No data"?** The data-source URL probably has an old Pi IP; use `http://localhost:8086`. Also make sure the time range (Last 1 year) covers your rows.
 - Grafana 13's menus are named a little differently from the slides, but the steps are the same.
 
+### Shortcut: import the dashboards as JSON
+
+Ready-made dashboards are in [`Example2_Grafana_Dashboards/`](Example2_Grafana_Dashboards/): [`room1.json`](Example2_Grafana_Dashboards/room1.json) and [`room2.json`](Example2_Grafana_Dashboards/room2.json). Each one is a gauge panel with the same 4 queries as the table above, Min 0, Max 100, Last 1 year, and a 5 s refresh.
+
+1. Do step 2 above first, so the InfluxDB data source exists.
+2. Go to Dashboards → **New** → **Import**.
+3. Click **Upload dashboard JSON file** and choose `room1.json`, or paste its contents into the box and click **Load**.
+4. Under **InfluxDB**, pick your InfluxDB data source, then click **Import**.
+5. Repeat for `room2.json`.
+
+- **Importing again** over an existing Room1: Grafana asks to overwrite it, because the UID `css452-room1` matches. Choose **Import (Overwrite)**, or change the name and UID on the import screen.
+- **Exporting your own dashboard:** open it → **Export** (or Share → Export) → **Export as JSON**. Turn on "Export for sharing externally" so it asks for the data source when you import it on another Pi.
+- **Build it by hand at least once.** In the exam you may need to show the query builder, so practise the manual steps too.
+
 ## Example 3: insert data with Node-RED (HW8 P1)
 
 1. Install **`node-red-contrib-influxdb`** from Manage palette. The InfluxDB nodes appear under **storage**.
