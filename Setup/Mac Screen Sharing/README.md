@@ -55,6 +55,10 @@ sudo ss -ltnp | grep 5900        # should show x11vnc, not wayvnc / vncserver
 - **Change the VNC password:** `sudo x11vnc -storepasswd /etc/x11vnc.pass && sudo systemctl restart x11vnc`
 - **Undo:** run `sudo systemctl disable --now x11vnc`, then turn VNC back on in `sudo raspi-config` → Interface Options → VNC.
 
+## Copy / paste
+
+Screen Sharing can't share the clipboard with a Pi (**Use Shared Clipboard** is greyed out). Use [Mac Clipboard Sync](../Mac%20Clipboard%20Sync/) for two-way copy/paste instead.
+
 ## Notes
 
 - The VNC connection **isn't encrypted**. Use it only on a trusted network, and never forward port 5900 on the router.
