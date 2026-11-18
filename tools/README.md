@@ -1,5 +1,47 @@
 # Tools
 
+| Script | Use it for |
+|---|---|
+| [`pi.sh`](#pish--open-the-pages-and-control-the-services) | opening Node-RED, the dashboard and Grafana without remembering ports, and starting or stopping services |
+| [`check_pi_ready.sh`](#check_pi_readysh--is-my-raspberry-pi-ready-for-the-practical-exam) | a full check before the exam |
+
+## `pi.sh` – open the pages and control the services
+
+Run it **from your Mac**: it opens the pages in your Mac's browser and controls the Pi over SSH. It also works **on the Pi**, where it detects that and runs everything locally.
+
+```bash
+cd tools
+./pi.sh                      # menu: ports + logins, then pick a number
+./pi.sh open nodered         # Node-RED editor      http://<Pi>:1880
+./pi.sh open ui              # Node-RED dashboard   http://<Pi>:1880/ui
+./pi.sh open grafana         # Grafana              http://<Pi>:3000
+./pi.sh open all             # all three
+./pi.sh status               # which of SSH / Node-RED / MQTT / InfluxDB / Grafana are up
+./pi.sh logins               # ports and default logins
+./pi.sh ip                   # the Pi's IPs and Wi-Fi name (use the Wi-Fi IP in ESP32 sketches)
+./pi.sh ssh                  # log in to the Pi
+./pi.sh check                # run check_pi_ready.sh on the Pi
+```
+
+**Services** (`start`, `stop`, `restart`, `status`, `log`):
+
+```bash
+./pi.sh nodered restart      # same as node-red-restart on the Pi
+./pi.sh nodered log          # live Node-RED log (Ctrl+C to leave)
+./pi.sh mosquitto restart
+./pi.sh influxdb status
+./pi.sh grafana start
+```
+
+**Which Pi:** `raspberrypi.local` by default. For another address, such as a friend's Pi:
+
+```bash
+./pi.sh --host 192.168.1.109 status
+export PI_HOST=192.168.1.109     # for the rest of this Terminal window
+```
+
+**Stop typing the password:** run `./pi.sh setup-key` once. It copies your Mac's SSH key to the Pi, asking for `raspberry` one last time.
+
 ## `check_pi_ready.sh` – is my Raspberry Pi ready for the practical exam?
 
 One read-only check of everything used in Lectures 8–11. It changes nothing on the Pi; the one test database it creates goes in `/tmp` and is deleted.
