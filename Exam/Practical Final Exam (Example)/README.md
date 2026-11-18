@@ -10,6 +10,8 @@ Worked solutions for the three example questions, with wiring diagrams. The pins
 
 Each question folder has the code or flow, the wiring, the run steps, and what your demo should show.
 
+**Check your Pi first:** run [`tools/check_pi_ready.sh`](../../tools/README.md) on the Pi. It checks Python GPIO, Node-RED and its palettes, Mosquitto, SQLite, InfluxDB and Grafana, and prints the fix for anything missing.
+
 **Before you start:**
 
 - **One GPIO flow at a time in Node-RED.** If another tab already uses GPIO22 or GPIO18, you get "GPIO pin 18 already set as type: PWM output". Disable the other tab, then Deploy.
