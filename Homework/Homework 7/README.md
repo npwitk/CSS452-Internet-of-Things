@@ -7,3 +7,7 @@
 | P3 | `P3_Example7_JSON_TwoSensors` | Example 7, with the ESP32 running `Local_NodeRed_PubNode_JSON.ino` |
 
 First create `SensorData` in `Database1` (Example 4) and `TwoSensors` in `Database2`. To check the data, run `sqlite3 Database1` and then `select * from SensorData;`. Setup notes are in `Lecture/Lecture 10/README.md`.
+
+## Wiring
+
+None. The ESP32 sketches send random values, so the ESP32 only needs USB power and the same Wi-Fi as the Pi.

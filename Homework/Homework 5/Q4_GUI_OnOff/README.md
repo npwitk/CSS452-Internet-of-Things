@@ -4,6 +4,9 @@ A small guizero window has two push buttons. **On** turns the LED on and greys i
 
 ## Circuit
 
+![GPIO22 → LED → 330 Ω → GND](../../../Lecture/Lecture%208/wiring/led_gpio22.png)
+
+
 Same as Q1:
 
 | From | To |

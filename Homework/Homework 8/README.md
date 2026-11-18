@@ -7,3 +7,7 @@
 | P3 | `P3_Example5_Room2` | Example 5: same flow, but the sketch sends `"room2"` |
 
 Setup is in `Lecture/Lecture 11/README.md`.
+
+## Wiring
+
+None. The ESP32 sketches send random values, so the ESP32 only needs USB power and the same Wi-Fi as the Pi.

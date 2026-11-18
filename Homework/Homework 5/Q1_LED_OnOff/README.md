@@ -4,6 +4,9 @@ Turn the LED on for 2 seconds and off for 2 seconds, repeatedly.
 
 ## Circuit
 
+![GPIO22 → LED → 330 Ω → GND](../../../Lecture/Lecture%208/wiring/led_gpio22.png)
+
+
 | From | To |
 |---|---|
 | GPIO22 (physical pin 15) | LED anode (long leg) |

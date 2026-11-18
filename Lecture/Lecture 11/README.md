@@ -57,3 +57,7 @@ return msg;
 ```
 
 **Tested on:** InfluxDB 1.13.2, Grafana 13.3.1 and Node-RED 5.0.9 on a Raspberry Pi 4, with MQTT test messages published from a laptop in place of the ESP32.
+
+## Wiring
+
+None. `Home_Sensors_PubNode_JSON.ino` sends random temp, humid, light and pm values, so the ESP32 only needs USB power and the same Wi-Fi as the Pi.

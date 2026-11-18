@@ -31,3 +31,7 @@ cp config_example.py config.py
 
 - the Python code
 - the graph of the random numbers in ThingSpeak (Field 1 Chart)
+
+## Wiring
+
+None. The Pi only needs an internet connection.

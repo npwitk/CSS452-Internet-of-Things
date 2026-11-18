@@ -25,3 +25,21 @@ Each folder has a `flow.json`. To use one, open the Node-RED editor at `http://<
 - **Pressed reads 0:** the switch uses a pull-up, so pressing it reads 0 and turns the LED off. To make pressing turn the LED **on**, add a `function` node: `msg.payload = 1 - Number(msg.payload); return msg;`.
 - **Pin numbers:** the `pin` field in these flows is the **BCM GPIO number** (3, 4, 22, 18), which is what `node-red-node-pi-gpio` stores in Node-RED 5. In the editor you pick the pin from the header picture. If an import shows the wrong pin, double-click the gpio node and pick it again.
 - **Tested on:** Node-RED 5.0.9 on a Raspberry Pi 4, with `node-red-node-pi-gpio` and `node-red-dashboard`.
+
+## Wiring pictures
+
+**Example 3 / HW6-P2:** LED1 on GPIO22 (pin 15) and LED2 on GPIO18 (pin 12), each through 330 Ω to GND.
+
+![Example 3 circuit](wiring/example3_two_leds.png)
+
+**Example 4 / Exercise 6:** the same two LEDs, plus SW1 GPIO3 (pin 5) → GND and SW2 GPIO4 (pin 7) → GND, using the internal pull-up.
+
+![Example 4 circuit](wiring/example4_two_switches_two_leds.png)
+
+**Example 5 / HW6-P3:** LED1 on GPIO22, plus SW1 GPIO3 → GND.
+
+![Example 5 circuit](wiring/example5_switch_led.png)
+
+Examples 1 and 2 need no wiring.
+
+*Wiring pictures are frames from the Peanut Cheat Sheets lecture videos.*

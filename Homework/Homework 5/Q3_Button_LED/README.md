@@ -4,6 +4,9 @@ While the switch is pressed the LED is on; otherwise it is off. The code polls `
 
 ## Circuit
 
+![GPIO22 → LED → 330 Ω → GND; GPIO18 → switch → GND](../../../Lecture/Lecture%208/wiring/button_gpio18_led_gpio22.png)
+
+
 | From | To |
 |---|---|
 | GPIO22 (physical pin 15) | LED anode (long leg) |

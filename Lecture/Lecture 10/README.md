@@ -47,3 +47,17 @@ To use a flow, open **Main menu → Import**, paste the `flow.json`, then click 
 - **Topics:** change `YOUR_ID` in the topics so they match the topic in your sketch exactly.
 - **Pin numbers:** the `pin` field is the **BCM GPIO number**, so LED1 is `22` (physical pin 15).
 - **Tested on:** Node-RED 5.0.9 and Mosquitto on a Raspberry Pi 4, with MQTT test messages published from a laptop in place of the ESP32.
+
+## Wiring (Examples 1–2, Exercise 7)
+
+**ESP32:** potentiometer ends to 3V3 and GND, wiper to A0 (GPIO36/VP). LED2 on GPIO26 → 330 Ω → GND.
+
+![ESP32 potentiometer and LED2](wiring/esp32_potentiometer_led2.png)
+
+**Pi (Example 2):** LED1 on GPIO22 (pin 15) → 330 Ω → GND, driven by Node-RED `rpi-gpio out` (PWM).
+
+![Pi LED1](wiring/pi_led1_gpio22.png)
+
+Examples 4–7 need no wiring; the ESP32 sketches send random values.
+
+*Wiring pictures are frames from the Peanut Cheat Sheets lecture videos.*

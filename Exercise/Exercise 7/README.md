@@ -4,3 +4,9 @@
 - **Pi:** wire LED1 to GPIO22 (pin 15) through 330 Ω to GND. Import `Example2_Gauge_LED1/flow.json` and Deploy, then open `/ui`.
 
 Turning the knob dims and brightens LED1, turns LED2 on above 500, and moves the gauge.
+
+## Wiring
+
+![ESP32 side](../../Lecture/Lecture%2010/wiring/esp32_potentiometer_led2.png)
+
+![Pi side](../../Lecture/Lecture%2010/wiring/pi_led1_gpio22.png)

@@ -18,3 +18,15 @@ Run each script on the Pi in Thonny (**Run**), or from a terminal with `python3 
 **ThingSpeak key (Example 8):** copy `config_example.py` to `config.py` and put your Write API Key in it. `config.py` is git-ignored, so the key is never committed.
 
 **Pin numbers:** gpiozero uses **GPIO (BCM) numbers**, so `LED(22)` means GPIO22, which is physical pin 15. Each script's pin is set near its top; change it there if you wired a different pin.
+
+## Wiring
+
+**One LED** (Examples 1, 2, 3, 6, 7; HW5 Q1, Q2, Q4): GPIO22 (pin 15) → LED long leg; short leg → 330 Ω → GND.
+
+![LED circuit](wiring/led_gpio22.png)
+
+**Switch + LED** (Examples 4, 5; HW5 Q3): LED as above, plus GPIO18 (pin 12) → push switch → GND. No resistor is needed on the switch because gpiozero turns on the internal pull-up.
+
+![Switch and LED circuit](wiring/button_gpio18_led_gpio22.png)
+
+*Wiring pictures are frames from the Peanut Cheat Sheets lecture videos.*

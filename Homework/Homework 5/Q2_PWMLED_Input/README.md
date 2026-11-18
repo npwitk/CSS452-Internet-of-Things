@@ -4,6 +4,9 @@ Type a value from 0.0 to 1.0, and the LED brightness follows it (`PWMLED.value`)
 
 ## Circuit
 
+![GPIO22 → LED → 330 Ω → GND](../../../Lecture/Lecture%208/wiring/led_gpio22.png)
+
+
 Same as Q1:
 
 | From | To |
