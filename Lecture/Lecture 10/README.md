@@ -76,6 +76,48 @@ To use a flow, open **Main menu → Import**, paste the `flow.json`, then click 
 | `Example6_MQTT_to_SQLite` | `mqtt in /IoT/Test1_YOUR_ID` → function → insert into `SensorData` |
 | `Example7_JSON_TwoSensors` | `mqtt in /IoT/Test2_YOUR_ID` → `json` → function → insert into `TwoSensors` in `/home/pi/Database2`. Create that table first: `create table TwoSensors(TheTime Timestamp, Sen1Val integer, Sen2Val integer);` |
 
+## Troubleshooting: "Flows stopped due to missing node types: sqlitedb, sqlite"
+
+This can happen even after installing `node-red-node-sqlite` from Manage palette. Check the Node-RED log on the Pi:
+
+```bash
+sudo journalctl -u nodered --no-pager -n 300 | grep -i sqlite
+```
+
+If it shows
+
+```
+Error: /lib/aarch64-linux-gnu/libm.so.6: version `GLIBC_2.38' not found (required by …/sqlite3/build/Release/node_sqlite3.node)
+```
+
+then npm downloaded a ready-made SQLite binary built for a newer Linux than the Pi runs. Raspberry Pi OS Bookworm has glibc 2.36, so Node-RED can't load it, and the nodes count as "missing" even though they are installed.
+
+**Fix:** build SQLite on the Pi so it matches the Pi's own glibc. This takes about 5–15 minutes.
+
+```bash
+sudo apt update
+sudo apt install -y build-essential python3 python3-setuptools
+cd ~/.node-red
+npm rebuild sqlite3 --build-from-source
+node-red-restart
+```
+
+Refresh the editor afterwards. The warning disappears, and the sqlite nodes show a green **RWC** status after Deploy.
+
+**Fallback if the build fails:** install the previous version, which ships a binary that works on Bookworm. The flows don't need any changes.
+
+```bash
+cd ~/.node-red
+npm install node-red-node-sqlite@1.1.0
+node-red-restart
+```
+
+**Removing the palette:** Manage palette refuses with "Type in use: sqlitedb, sqlite" while any flow still uses those nodes. You don't need to remove it to apply the fix above. To remove it anyway:
+
+1. Delete every sqlite node (Ctrl/⌘ + F, search `sqlite`; disabled tabs count too).
+2. Delete the `sqlitedb` entries under Main menu → Configuration nodes.
+3. Deploy, then remove the palette.
+
 ## Notes
 
 - **Topics:** change `YOUR_ID` in the topics so they match the topic in your sketch exactly.
