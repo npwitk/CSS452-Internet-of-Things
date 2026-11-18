@@ -1,0 +1,171 @@
+[
+  {
+    "id": "q3db",
+    "type": "sqlitedb",
+    "db": "/home/pi/ExamDB",
+    "mode": "RWC"
+  },
+  {
+    "id": "q3broker",
+    "type": "mqtt-broker",
+    "name": "Local Pi",
+    "broker": "localhost",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "60",
+    "cleansession": true
+  },
+  {
+    "id": "q3create",
+    "type": "inject",
+    "name": "create table (click once)",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "payload": "true",
+    "payloadType": "bool",
+    "repeat": "",
+    "once": false,
+    "x": 170,
+    "y": 60,
+    "wires": [
+      [
+        "q3sqlc"
+      ]
+    ]
+  },
+  {
+    "id": "q3sqlc",
+    "type": "sqlite",
+    "mydb": "q3db",
+    "sqlquery": "fixed",
+    "sql": "create table FiveValues (TheTime Timestamp, V1 integer, V2 integer, V3 integer, V4 integer, V5 integer)",
+    "name": "ExamDB create",
+    "x": 430,
+    "y": 60,
+    "wires": [
+      [
+        "q3dbg"
+      ]
+    ]
+  },
+  {
+    "id": "q3in",
+    "type": "mqtt in",
+    "name": "",
+    "topic": "/IoT/FiveValues_YOUR_ID",
+    "qos": "2",
+    "datatype": "auto-detect",
+    "broker": "q3broker",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "x": 170,
+    "y": 140,
+    "wires": [
+      [
+        "q3json"
+      ]
+    ]
+  },
+  {
+    "id": "q3json",
+    "type": "json",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 370,
+    "y": 140,
+    "wires": [
+      [
+        "q3fn"
+      ]
+    ]
+  },
+  {
+    "id": "q3fn",
+    "type": "function",
+    "name": "Params variable",
+    "func": "msg.params = {\n    $TimeVal: Date.now(),\n    $V1: msg.payload.V1,\n    $V2: msg.payload.V2,\n    $V3: msg.payload.V3,\n    $V4: msg.payload.V4,\n    $V5: msg.payload.V5\n};\nreturn msg;",
+    "outputs": 1,
+    "x": 530,
+    "y": 140,
+    "wires": [
+      [
+        "q3ins"
+      ]
+    ]
+  },
+  {
+    "id": "q3ins",
+    "type": "sqlite",
+    "mydb": "q3db",
+    "sqlquery": "prepared",
+    "sql": "insert into FiveValues (TheTime, V1, V2, V3, V4, V5) values ($TimeVal, $V1, $V2, $V3, $V4, $V5)",
+    "name": "ExamDB insert",
+    "x": 720,
+    "y": 140,
+    "wires": [
+      [
+        "q3dbg"
+      ]
+    ]
+  },
+  {
+    "id": "q3check",
+    "type": "inject",
+    "name": "check table",
+    "props": [
+      {
+        "p": "payload"
+      }
+    ],
+    "payload": "true",
+    "payloadType": "bool",
+    "repeat": "",
+    "once": false,
+    "x": 140,
+    "y": 220,
+    "wires": [
+      [
+        "q3sel"
+      ]
+    ]
+  },
+  {
+    "id": "q3sel",
+    "type": "sqlite",
+    "mydb": "q3db",
+    "sqlquery": "fixed",
+    "sql": "select * from FiveValues",
+    "name": "ExamDB select",
+    "x": 420,
+    "y": 220,
+    "wires": [
+      [
+        "q3dbg"
+      ]
+    ]
+  },
+  {
+    "id": "q3dbg",
+    "type": "debug",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "x": 920,
+    "y": 140,
+    "wires": []
+  }
+]

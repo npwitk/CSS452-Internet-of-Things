@@ -1,0 +1,91 @@
+[
+  {
+    "id": "q2tab",
+    "type": "ui_tab",
+    "name": "Exam",
+    "icon": "dashboard",
+    "order": 1,
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "q2grp",
+    "type": "ui_group",
+    "name": "LED2",
+    "tab": "q2tab",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "q2sw1",
+    "type": "rpi-gpio in",
+    "name": "SW1",
+    "pin": "3",
+    "intype": "up",
+    "debounce": "25",
+    "read": true,
+    "bcm": true,
+    "x": 130,
+    "y": 80,
+    "wires": [
+      [
+        "q2led1"
+      ]
+    ]
+  },
+  {
+    "id": "q2led1",
+    "type": "rpi-gpio out",
+    "name": "LED1",
+    "pin": "22",
+    "set": "",
+    "level": "0",
+    "freq": "",
+    "out": "out",
+    "bcm": true,
+    "x": 360,
+    "y": 80,
+    "wires": []
+  },
+  {
+    "id": "q2sld",
+    "type": "ui_slider",
+    "name": "",
+    "label": "LED2 brightness",
+    "tooltip": "",
+    "group": "q2grp",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "outs": "all",
+    "topic": "",
+    "topicType": "str",
+    "min": 0,
+    "max": "100",
+    "step": 1,
+    "x": 150,
+    "y": 160,
+    "wires": [
+      [
+        "q2led2"
+      ]
+    ]
+  },
+  {
+    "id": "q2led2",
+    "type": "rpi-gpio out",
+    "name": "LED2",
+    "pin": "18",
+    "set": "",
+    "level": "0",
+    "freq": "100",
+    "out": "pwm",
+    "bcm": true,
+    "x": 360,
+    "y": 160,
+    "wires": []
+  }
+]
