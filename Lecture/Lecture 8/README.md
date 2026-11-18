@@ -29,4 +29,4 @@ Run each script on the Pi in Thonny (**Run**), or from a terminal with `python3 
 
 ![Switch and LED circuit](wiring/button_gpio18_led_gpio22.png)
 
-*Wiring pictures are frames from the Peanut Cheat Sheets lecture videos.*
+*Wiring diagrams redrawn from the Peanut Cheat Sheets lecture videos (transparent PNG; the SVG sources are in each `wiring/` folder)*

@@ -42,4 +42,4 @@ Each folder has a `flow.json`. To use one, open the Node-RED editor at `http://<
 
 Examples 1 and 2 need no wiring.
 
-*Wiring pictures are frames from the Peanut Cheat Sheets lecture videos.*
+*Wiring diagrams redrawn from the Peanut Cheat Sheets lecture videos (transparent PNG; the SVG sources are in each `wiring/` folder)*

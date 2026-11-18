@@ -60,4 +60,4 @@ To use a flow, open **Main menu → Import**, paste the `flow.json`, then click 
 
 Examples 4–7 need no wiring; the ESP32 sketches send random values.
 
-*Wiring pictures are frames from the Peanut Cheat Sheets lecture videos.*
+*Wiring diagrams redrawn from the Peanut Cheat Sheets lecture videos (transparent PNG; the SVG sources are in each `wiring/` folder)*
