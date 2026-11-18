@@ -30,6 +30,40 @@ sudo systemctl restart mosquitto
 
 In Node-RED (`http://<Pi IP>:1880`, login `pi` / `raspberry`), install `node-red-node-sqlite` and `node-red-dashboard` from **Manage palette**.
 
+## Example 3: SQLite in the terminal (`Home1.db`)
+
+No Node-RED and no wiring. This runs in the Pi's terminal.
+
+```bash
+sudo apt install sqlite3          # once; needs internet
+cd /home/pi
+sqlite3 Home1.db                  # creates Home1.db and opens the sqlite> shell
+```
+
+Then type these in the `sqlite>` shell:
+
+```sql
+CREATE TABLE Room1(id INTEGER PRIMARY KEY AUTOINCREMENT, date DATETIME, sensor1 REAL, sensor2 REAL, sensor3 REAL);
+.tables
+INSERT INTO Room1 (date, sensor1, sensor2, sensor3) VALUES (datetime("now"), 55, 29, 71);
+SELECT * FROM Room1;
+.quit
+```
+
+Real output from a Pi:
+
+```
+Room1
+1|2026-11-13 13:23:39|55.0|29.0|71.0
+```
+
+- **`id`:** `INTEGER PRIMARY KEY AUTOINCREMENT` numbers the rows 1, 2, 3… by itself, which is why the INSERT doesn't give it.
+- **`date`:** `datetime("now")` is **UTC**, so 13:23 here is 20:23 Thai time.
+- **`REAL` columns:** store decimals, so `55` becomes `55.0`.
+- **Dot-commands** (`.tables`, `.quit`, `.help`) are sqlite3 shell commands and take **no `;`**. SQL statements end with **`;`**.
+- **Deleting:** remove a table with `DROP TABLE Room1;`. To delete the whole database, delete the file (`rm Home1.db`); there's no SQL command for it.
+- **Running it in one go:** [`Example3_SQLite_Home1/example3.sql`](Example3_SQLite_Home1/example3.sql) has the same commands. Run `sqlite3 Home1.db < Example3_SQLite_Home1/example3.sql`.
+
 ## Node-RED flows
 
 To use a flow, open **Main menu → Import**, paste the `flow.json`, then click **Deploy**.
