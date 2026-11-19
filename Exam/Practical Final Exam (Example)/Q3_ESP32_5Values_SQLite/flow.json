@@ -79,7 +79,7 @@
     "type": "json",
     "name": "",
     "property": "payload",
-    "action": "",
+    "action": "obj",
     "pretty": false,
     "x": 370,
     "y": 140,

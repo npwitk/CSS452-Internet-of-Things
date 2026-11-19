@@ -47,7 +47,9 @@ return msg;
 insert into FiveValues (TheTime, V1, V2, V3, V4, V5) values ($TimeVal, $V1, $V2, $V3, $V4, $V5)
 ```
 
-- **`json` node:** turns the MQTT text into an object, so `msg.payload.V1` works. Without it, the payload is just a string.
+- **`json` node:** set its Action to **"Always convert to JavaScript Object"**. That way `msg.payload.V1` works whatever the mqtt in node sends.
+  - **Why this matters:** if the **mqtt in** node's Output is "auto-detect (parsed JSON object…)", it has *already* turned the text into an object. A `json` node left on the default "Convert between JSON String & Object" then **flips it back into a string**. `msg.payload.V1` becomes `undefined`, and SQLite stores **`TheTime` with `V1–V5` all `null`**.
+  - **Two ways to fix it:** set the `json` node to "Always convert to JavaScript Object" (what this flow now does), or set mqtt in's Output to "a String". If you're unsure, adding `if (typeof msg.payload === "string") msg.payload = JSON.parse(msg.payload);` as the first line of the function node also works.
 - **`TheTime`:** `Date.now()` in milliseconds. For readable times: `select datetime(TheTime/1000,'unixepoch','localtime'), V1, V2, V3, V4, V5 from FiveValues;`
 - **`random(101)`:** gives 0–100. `random(100)` would stop at 99.
 
