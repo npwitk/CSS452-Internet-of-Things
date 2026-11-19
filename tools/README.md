@@ -21,6 +21,7 @@ cd tools
 ./pi.sh ip                   # the Pi's IPs and Wi-Fi name (use the Wi-Fi IP in ESP32 sketches)
 ./pi.sh ssh                  # log in to the Pi
 ./pi.sh check                # run check_pi_ready.sh on the Pi
+./pi.sh find                 # search for the Pi again (see below)
 ```
 
 **Services** (`start`, `stop`, `restart`, `status`, `log`):
@@ -33,11 +34,22 @@ cd tools
 ./pi.sh grafana start
 ```
 
-**Which Pi:** `raspberrypi.local` by default. For another address, such as a friend's Pi:
+**Which Pi:** the script finds it for you and remembers it in `~/.css452_pi_host`.
+
+- **First run, or when the saved Pi doesn't answer:** it searches by itself. It tries the default `raspberrypi.local`, every `.local` name and Internet Sharing address (`192.168.2.x`) this Mac has SSH'd to before, and `192.168.2.2–10` if Internet Sharing is on. It lists each Pi that answers, with its real hostname. If more than one answers, for example a classmate's Pi on the same Wi-Fi, you pick yours.
+- **Renamed your Pi or changed network?** Run `./pi.sh find`.
 
 ```bash
-./pi.sh --host 192.168.1.109 status
-export PI_HOST=192.168.1.109     # for the rest of this Terminal window
+./pi.sh find                    # search again and pick
+./pi.sh use peanut-pi.local     # set it yourself (a name or an IP)
+./pi.sh where                   # show which Pi is being used
+./pi.sh --host 192.168.1.109 status   # one-off, without changing the saved one
+```
+
+**Several Pis on one Wi-Fi?** At school every Pi is called `raspberrypi.local` by default, so SSH may reach a classmate's Pi and warn "REMOTE HOST IDENTIFICATION HAS CHANGED". Give yours a unique name once, then run `./pi.sh find`:
+
+```bash
+ssh pi@<your Pi's IP> "sudo hostnamectl set-hostname my-pi && sudo sed -i 's/raspberrypi/my-pi/g' /etc/hosts && sudo reboot"
 ```
 
 **Stop typing the password:** run `./pi.sh setup-key` once. It copies your Mac's SSH key to the Pi, asking for `raspberry` one last time.
