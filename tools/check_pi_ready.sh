@@ -123,8 +123,14 @@ section "6. InfluxDB (Lecture 11)"
 if have influx || have influxd; then
   ok "InfluxDB installed ($(influx -version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1))"
   if active influxdb; then ok "InfluxDB running"; else bad "InfluxDB not running" "sudo systemctl unmask influxdb && sudo systemctl enable --now influxdb"; fi
-  if awk '/^\[http\]/{h=1;next} /^\[/{h=0} h && /^[[:space:]]*enabled[[:space:]]*=[[:space:]]*true/{f=1} END{exit !f}' /etc/influxdb/influxdb.conf 2>/dev/null; then ok "[http] enabled = true"; else bad "HTTP endpoint not enabled" "sudo nano /etc/influxdb/influxdb.conf → in [http] remove # before enabled = true → sudo systemctl restart influxdb"; fi
-  if curl -s -o /dev/null -w '%{http_code}' http://localhost:8086/ping 2>/dev/null | grep -q 204; then ok "port 8086 answers (/ping)"; else bad "port 8086 does not answer" "check [http] above, then sudo systemctl restart influxdb"; fi
+  # [http] is enabled by default in InfluxDB 1.x, so judge by whether the port actually answers
+  if curl -s -o /dev/null -w '%{http_code}' http://localhost:8086/ping 2>/dev/null | grep -q 204; then
+    ok "HTTP API answers on port 8086 (/ping)"
+  elif awk '/^\[http\]/{h=1;next} /^\[/{h=0} h && /^[[:space:]]*enabled[[:space:]]*=[[:space:]]*false/{f=1} END{exit !f}' /etc/influxdb/influxdb.conf 2>/dev/null; then
+    bad "HTTP API disabled ([http] enabled = false)" "sudo nano /etc/influxdb/influxdb.conf → in [http] set enabled = true → sudo systemctl restart influxdb"
+  else
+    bad "port 8086 does not answer" "sudo systemctl restart influxdb, then check: sudo journalctl -u influxdb -n 30"
+  fi
   DBS=$(influx -execute "show databases" 2>/dev/null)
   if echo "$DBS" | grep -qx InfluxTest; then ok "database InfluxTest"; else bad "database InfluxTest missing" "influx -execute \"create database InfluxTest\""; fi
   if influx -execute "show users" 2>/dev/null | grep -q InfluxUser; then ok "user InfluxUser"; else warn "user InfluxUser missing" "influx -execute \"create user InfluxUser with password 'InfluxPW' with all privileges\""; fi
