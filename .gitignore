@@ -3,3 +3,4 @@
 # Python secrets (e.g. ThingSpeak Write API Key); commit config_example.py instead
 config.py
 __pycache__/
+/Exam/Practical Final Exam/6622772422_Prac_Final_IoT

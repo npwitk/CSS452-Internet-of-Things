@@ -1,0 +1,152 @@
+[
+    {
+        "id": "93791944cdf0cc7d",
+        "type": "tab",
+        "label": "Q2 Phuket (influxdb out, float fields)",
+        "disabled": false,
+        "info": "Only works if Air/Wind/Sun were inserted as floats (no i suffix) in 2.1"
+    },
+    {
+        "id": "6d4e3d63acc953a8",
+        "type": "mqtt in",
+        "z": "93791944cdf0cc7d",
+        "name": "mqtt in /IoT/Phuket",
+        "topic": "/IoT/Phuket",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "phbroker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "d0a8f0a37751a47e"
+            ]
+        ]
+    },
+    {
+        "id": "d0a8f0a37751a47e",
+        "type": "json",
+        "z": "93791944cdf0cc7d",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 330,
+        "y": 100,
+        "wires": [
+            [
+                "ab2c024062318069"
+            ]
+        ]
+    },
+    {
+        "id": "ab2c024062318069",
+        "type": "function",
+        "z": "93791944cdf0cc7d",
+        "name": "Fields",
+        "func": "msg.payload = [{\n    Air: msg.payload.Air,\n    Wind: msg.payload.Wind,\n    Sun: msg.payload.Sun\n},\n{\n    Farm: msg.payload.Farm\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 100,
+        "wires": [
+            [
+                "9639327d849e5e79",
+                "872e24d5ee341d09"
+            ]
+        ]
+    },
+    {
+        "id": "9639327d849e5e79",
+        "type": "influxdb out",
+        "z": "93791944cdf0cc7d",
+        "influxdb": "95958b05fde2605c",
+        "name": "Thalang",
+        "measurement": "Thalang",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 660,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "872e24d5ee341d09",
+        "type": "debug",
+        "z": "93791944cdf0cc7d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "phbroker",
+        "type": "mqtt-broker",
+        "name": "Local Pi",
+        "broker": "192.168.2.2",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "95958b05fde2605c",
+        "type": "influxdb",
+        "hostname": "localhost",
+        "port": "8086",
+        "protocol": "http",
+        "database": "Phuket",
+        "name": "Phuket",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "",
+        "timeout": "",
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "9a0318102a26d8c5",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0"
+        }
+    }
+]

@@ -1,0 +1,18 @@
+# Q2.1 (B1) - run on the Raspberry Pi terminal
+influx
+
+create database Phuket
+show databases
+use Phuket
+
+# Farm = tag, Air/Wind/Sun = integer fields (the "i" suffix makes them integers)
+insert Thalang,Farm=Farm1 Air=25i,Wind=60i,Sun=80i
+insert Thalang,Farm=Farm1 Air=42i,Wind=15i,Sun=95i
+insert Thalang,Farm=Farm1 Air=7i,Wind=88i,Sun=33i
+insert Thalang,Farm=Farm1 Air=63i,Wind=41i,Sun=12i
+
+select * from Thalang
+show tag keys from Thalang
+show field keys from Thalang
+precision rfc3339
+select * from Thalang
